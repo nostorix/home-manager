@@ -203,7 +203,7 @@
         };
         languages = {
           enableTreesitter = true;
-          ts = {
+          typescript = {
             enable = true;
             #lsp.servers = [];
           };

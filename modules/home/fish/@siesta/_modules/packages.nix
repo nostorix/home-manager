@@ -7,7 +7,6 @@
     seahorse
     ripgrep
     trash-cli
-    swww
     wl-clipboard
     vesktop
   ];
