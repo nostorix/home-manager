@@ -17,6 +17,7 @@
           inputs.stylix.homeModules.stylix
           (inputs.import-tree ./_modules)
           {
+            nixpkgs.config.allowUnfree = true;
             nixpkgs.overlays = [
               inputs.substratum.overlays.default
             ];
