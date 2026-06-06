@@ -6,10 +6,14 @@
       systemd.user.services.waydroid-session = {
         Unit = {
           Description = "Waydroid User Session";
-          After = [ "waydroid-container.service" ];
+          After = [
+            "graphical-session.target"
+            "waydroid-container.service"
+          ];
         };
         Install = {
           WantedBy = [ "graphical-session.target" ];
+          Requires = [ "graphical-session.target" ];
         };
         Service = {
           Type = "simple";
@@ -23,7 +27,7 @@
           MemoryMax = "4G";
           MemoryHigh = "3G";
 
-          TimeoutStopSec = "15s";
+          TimeoutStopSec = "30s";
           Restart = "on-failure";
         };
       };
