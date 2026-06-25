@@ -10,6 +10,7 @@
     EDITOR = "nvim";
     VISUAL = "nvim";
   };
+
   programs.nvf = {
     defaultEditor = true;
     enable = true;
@@ -139,7 +140,10 @@
                     flake_parts = {
                       expr = ''
                         let
-                            flake = builtins.getFlake (toString ./.);
+                            flakePath = ./.;
+                            flake = if builtins.pathExists(flakePath+"/flake.nix")
+                                    then builtins.getFlake(toString flakePath)
+                                    else {};
 
                             debugOptions = 
                               if flake ? debug && flake.debug ? options
@@ -154,11 +158,13 @@
                             debugOptions // systemOptions
                       '';
                     };
-                    # TODO: Learn to use dev shells because. Holy. Shit.
                     home_manager = {
                       expr = ''
                         let
-                          flake = builtins.getFlake (toString ./.); 
+                          flakePath = ./.;
+                          flake = if builtins.pathExists(flakePath+"/flake.nix")
+                                    then builtins.getFlake(toString flakePath)
+                                    else {};
                           options =
                             if flake ? homeConfigurations
                                && flake.homeConfigurations ? ${config.home.username}
@@ -184,7 +190,10 @@
                     nixos = {
                       expr = ''
                         let
-                          flake = builtins.getFlake (toString ./.);
+                          flakePath = ./.;
+                          flake = if builtins.pathExists(flakePath+"/flake.nix")
+                                    then builtins.getFlake(toString flakePath)
+                                    else {};
                           options =
                             if flake ? nixosConfigurations
                                && flake.nixosConfigurations ? siesta
@@ -203,7 +212,7 @@
         };
         languages = {
           enableTreesitter = true;
-          typescript = {
+          ts = {
             enable = true;
             #lsp.servers = [];
           };
