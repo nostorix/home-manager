@@ -40,6 +40,7 @@
     # OR: Place these stylix options INSIDE of the packages themselves? eg: programs/mako.nix, etc.
     targets = {
       nvf.enable = false;
+      nixvim.enable = false;
       swaylock = {
         image = {
           override = "${../assets/swaylock-bg.png}";

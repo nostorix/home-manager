@@ -212,6 +212,15 @@
         };
         languages = {
           enableTreesitter = true;
+          clang = {
+            enable = true;
+            lsp = {
+              enable = true;
+            };
+            cHeader = true;
+            extraDiagnostics.enable = true;
+            treesitter.enable = true;
+          };
           ts = {
             enable = true;
             #lsp.servers = [];
