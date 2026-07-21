@@ -6,4 +6,5 @@
     size = 24;
   };
   stylix.targets.gtksourceview.enable = false;
+  home.pointerCursor.enable = true;
 }
