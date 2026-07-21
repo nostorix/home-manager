@@ -9,6 +9,7 @@
     {
       legacyPackages.homeConfigurations."fish@siesta" = inputs.home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
+        extraSpecialArgs = { inherit inputs; };
         modules = [
           inputs.dotfiles.homeModules.default
           inputs.nvf.homeManagerModules.default
@@ -17,7 +18,6 @@
           inputs.stylix.homeModules.stylix
           (inputs.import-tree ./_modules)
           {
-            nixpkgs.config.allowUnfree = true;
             nixpkgs.overlays = [
               inputs.substratum.overlays.default
             ];
