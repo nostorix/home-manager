@@ -70,6 +70,29 @@
                           options
                       '';
                     };
+                    finix = {
+                      expr = ''
+                        let
+                          flakePath = ./.;
+                          flake = if builtins.pathExists(flakePath+"/flake.nix")
+                                    then builtins.getFlake(toString flakePath)
+                                    else {};
+                          options =
+                            if flake ? nixosConfigurations
+                               && flake.nixosConfigurations ? vane
+                            then flake.homeConfigurations.vane.options
+                            else 
+                            if flake ? legacyPackages
+                               && flake.legacyPackages ? ${pkgs.stdenv.hostPlatform.system} 
+                               && flake.legacyPackages.${pkgs.stdenv.hostPlatform.system} ? nixosConfigurations 
+                               && flake.legacyPackages.${pkgs.stdenv.hostPlatform.system}.nixosConfigurations ? vane 
+                            then flake.legacyPackages.${pkgs.stdenv.hostPlatform.system}.nixosConfigurations.vane.options
+                            else
+                            {};
+                        in
+                          options
+                      '';
+                    };
                   };
                 };
               };

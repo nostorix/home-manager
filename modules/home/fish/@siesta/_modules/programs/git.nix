@@ -1,9 +1,14 @@
 {
   self,
   config,
+  pkgs,
   ...
 }:
 {
+  home.packages = with pkgs; [
+    delta
+  ];
+
   programs.git = {
     enable = true;
     signing = {
@@ -21,6 +26,13 @@
       };
       submodule.recurse = true;
       push.recurseSubmodules = "check";
+      core.pager = "delta";
+      interactive.diffFilter = "delta --color-only";
+      delta = {
+        navigate = true;
+        dark = true;
+      };
+      merge.conflictStyle = "zdiff3";
     };
   };
 }
